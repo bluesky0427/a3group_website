@@ -57,7 +57,7 @@ export default function HomePage() {
             <span className="eyebrow text-gold-light">
               Technology · Human Skill · Opportunity
             </span>
-            <h1 className="mt-6 text-5xl font-semibold leading-[1.05] md:text-6xl lg:text-7xl">
+            <h1 className="mt-6 text-5xl font-semibold leading-[1.05] text-white md:text-6xl lg:text-7xl">
               A3 Technology Group
             </h1>
             <p className="mt-6 text-xl font-medium text-gold-light md:text-2xl">
