@@ -116,7 +116,10 @@ export async function POST(request: Request) {
 
   try {
     // ---- 3a. Internal notification email (to the company inbox) ----
-    await resend.emails.send({
+    // NOTE: the Resend SDK does NOT throw on API errors (e.g. an unverified
+    // sending domain). It resolves with `{ data, error }`, so we must inspect
+    // `error` ourselves — otherwise failed sends look like successes.
+    const notify = await resend.emails.send({
       from: `A3 Technology Group <${fromEmail}>`,
       to: [toEmail],
       reply_to: email, // replying goes straight to the visitor
@@ -125,14 +128,31 @@ export async function POST(request: Request) {
       html: buildNotificationHtml({ name, email, company, reason, message }),
     });
 
+    if (notify.error) {
+      console.error("[contact] Resend rejected the notification email:", notify.error);
+      return NextResponse.json(
+        {
+          error:
+            "We could not send your message right now. Please try again or email us directly at support@a3technologygroup.com.",
+        },
+        { status: 502 }
+      );
+    }
+
     // ---- 3b. Automatic thank-you email (to the visitor) ----
-    await resend.emails.send({
+    // Best-effort: if this fails we still treat the submission as received,
+    // since the company has already been notified above.
+    const thankYou = await resend.emails.send({
       from: `A3 Technology Group <${thankYouFrom}>`,
       to: [email],
       subject: "Thank you for contacting A3 Technology Group",
       text: THANK_YOU_TEXT,
       html: THANK_YOU_HTML,
     });
+
+    if (thankYou.error) {
+      console.error("[contact] Resend rejected the thank-you email:", thankYou.error);
+    }
 
     return NextResponse.json({ ok: true }, { status: 200 });
   } catch (error) {
