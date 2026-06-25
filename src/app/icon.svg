@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#0B2545"/>
+  <!-- A³ monogram: "A" in white, "3" raised in gold as an exponent —
+       a nod to value multiplied through combined skills. -->
+  <text x="29" y="44" text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" fill="#ffffff">A</text>
+  <text x="48" y="30" text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif" font-size="20" font-weight="700" fill="#C8A04D">3</text>
+  <rect x="17" y="50" width="30" height="3" rx="1.5" fill="#C8A04D"/>
+</svg>

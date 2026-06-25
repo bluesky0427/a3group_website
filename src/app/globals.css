@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Stronger, consistent typographic rhythm */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif tracking-tight text-navy;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    @apply bg-navy text-white;
+  }
+}
+
+@layer components {
+  /* Reusable section eyebrow label */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark;
+  }
+
+  /* Gold underline accent used under headings */
+  .accent-rule {
+    @apply h-1 w-14 rounded-full bg-gold;
+  }
+
+  /* Body prose used inside long-form content pages */
+  .prose-a3 p {
+    @apply text-base leading-relaxed text-ink-light md:text-lg;
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
